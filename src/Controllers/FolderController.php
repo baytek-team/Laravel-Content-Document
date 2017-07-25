@@ -63,8 +63,7 @@ class FolderController extends ContentController
 
         $this->viewData['index'] = [
             'current_category_id' => $current_category_id,
-            'can_add_file' => true, //eventually change this so you have to be inside a folder to start adding files
-            'categories' => $categories, //Content::hierarchy($categories),
+            'categories' => $categories,
         ];
 
         return parent::contentIndex();
@@ -89,8 +88,7 @@ class FolderController extends ContentController
 
         $this->viewData['index'] = [
             'current_category_id' => $id,
-            'can_add_file' => true, //eventually change this so you have to be inside a folder to start adding files
-            'categories' => $categories, //Content::hierarchy($categories),
+            'categories' => $categories,
         ];
 
         return parent::contentIndex();
