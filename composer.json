@@ -1,0 +1,28 @@
+{
+    "name": "baytek/laravel-content-files",
+    "description": "Files Content Provider",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Yvon Viger",
+            "email": "yvon@baytek.ca"
+        },
+        {
+            "name": "Sarah Marinoff",
+            "email": "sarah@baytek.ca"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Baytek\\Laravel\\Content\\Types\\Files\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.6.4"
+    },
+    "post-install-cmd": [
+        "php artisan install:files"
+    ],
+    "minimum-stability": "dev"
+}
