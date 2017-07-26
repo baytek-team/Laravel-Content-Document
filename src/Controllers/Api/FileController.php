@@ -4,9 +4,9 @@ namespace Baytek\Laravel\Content\Types\Document\Controllers\Api;
 
 use Baytek\Laravel\Content\Types\Document\Models\Folder;
 use Baytek\Laravel\Content\Types\Document\Models\File;
+use Baytek\Laravel\Content\Controllers\ApiController;
 
 use Baytek\Laravel\Content\Models\Content;
-use Baytek\Laravel\Content\Controllers\ContentController;
 
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ use Storage;
 
 use File as FS;
 
-class FileController extends ContentController
+class FileController extends ApiController
 {
     public function view($folder, $file)
     {

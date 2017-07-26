@@ -6,9 +6,9 @@ use Baytek\Laravel\Content\Types\Document\Models\Folder;
 use Baytek\Laravel\Content\Types\Document\Models\File;
 use Baytek\Laravel\Content\Types\Document\Scopes\ApprovedFolderScope;
 
+use Baytek\Laravel\Content\Controllers\ApiController;
 use Baytek\Laravel\Content\Models\Content;
 use Baytek\Laravel\Content\Events\ContentEvent;
-use Baytek\Laravel\Content\Controllers\ContentController;
 
 use Illuminate\Http\Request;
 use App\ContentTypes\Committees\Requests\FolderRequest;
@@ -19,7 +19,7 @@ use Carbon\Carbon;
 use Response;
 use Validator;
 
-class FolderController extends ContentController
+class FolderController extends ApiController
 {
     public function view($path = '')
     {
