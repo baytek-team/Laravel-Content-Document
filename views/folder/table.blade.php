@@ -32,19 +32,19 @@
                     <td class="resource-details">
                         @if($category->relationships()->get('content_type') == 'resource-category')
                             <i class="folder icon"></i>
-                            <a class="item" href="{{ route('resource.folder.show', $category->id) }}">
+                            <a class="item" href="{{ route('document.folder.show', $category->id) }}">
                                 {{ $category->title }}
                             </a>
                             <div style="float: right">
                                 <div class="ui compact text menu">
                                     @if($category->parent() && content($category->parent())->key != 'webpage')
-                                        <a class="item" href="{{ route('resource.folder.edit', $category->id) }}">
+                                        <a class="item" href="{{ route('document.folder.edit', $category->id) }}">
                                             <i class="pencil icon"></i>
                                             {{ ___('Edit') }}
                                         </a>
                                         @button(___('Delete'), [
                                             'method' => 'delete',
-                                            'location' => 'resource.folder.destroy',
+                                            'location' => 'document.folder.destroy',
                                             'type' => 'route',
                                             'confirm' => 'Are you sure you want to delete this folder?<br/>All files and subfolders will be deleted as well.<br/>This action cannot be undone.',
                                             'class' => 'item action',
@@ -59,18 +59,18 @@
                             </div>
                         @else
                             <i class="{{ \Baytek\Laravel\Content\Types\Document\Models\File::getIconCssClass($category->getMeta('original')) }}"></i>
-                            <a class="item" href="{{ route('file.download', [$category->id]) }}">
+                            <a class="item" href="{{ route('document.file.download', [$category->id]) }}">
                                 {{ $category->title }}
                             </a>
                             <div style="float: right">
                                 <div class="ui compact text menu">
-                                    <a class="item" href="{{ route('file.edit', [$category->id]) }}">
+                                    <a class="item" href="{{ route('document.file.edit', [$category->id]) }}">
                                         <i class="pencil icon"></i>
                                         {{ ___('Edit') }}
                                     </a>
                                     @button(___('Delete'), [
                                         'method' => 'post',
-                                        'location' => 'file.delete',
+                                        'location' => 'document.file.delete',
                                         'type' => 'route',
                                         'confirm' => 'Are you sure you want to delete this file?',
                                         'class' => 'item action',
@@ -96,16 +96,16 @@
                     <i class="file outline icon"></i>
                     <span class="uploading"><strong>Uploading: </strong></span>
                     <span class="dz-error-message" data-dz-errormessage></span>
-                    <a class="file-name" data-dz-name data-href="{{ route('file.download', 1) }}"></a>
+                    <a class="file-name" data-dz-name data-href="{{ route('document.file.download', 1) }}"></a>
                     {{-- <div class="item dz-size" data-dz-size></div> --}}
 
                     <div style="float: right">
                         <div class="ui compact text menu">
-                            <a style="display: none" class="edit-button item" data-href="{{ route('file.edit', 1) }}">
+                            <a style="display: none" class="edit-button item" data-href="{{ route('document.file.edit', 1) }}">
                                 <i class="pencil icon"></i>
                                 {{ ___('Edit') }}
                             </a>
-                            <a class="item delete-button" data-dz-remove data-href="{{ route('file.delete', 1) }}" >
+                            <a class="item delete-button" data-dz-remove data-href="{{ route('document.file.delete', 1) }}" >
                                 <i class="delete icon"></i>
                                 <span class="delete-text">{{ ___('Remove') }}</span>
                             </a>
