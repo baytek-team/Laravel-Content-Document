@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Baytek\Laravel\Content\Types\Document\Models\File;
 use Baytek\Laravel\Content\Types\Document\Models\Folder;
 
+use Faker\Factory as Faker;
+
 class FakeDataSeeder extends Seeder
 {
     /**
