@@ -8,7 +8,7 @@
 		previewsContainer: $('.dropzone-preview')[0],
 		previewTemplate: $('.dropzone-template').html(),
 		clickable: '.dz-clickable',
-		url: '{{ route('file.store', $resource_id) }}',
+		url: '{{ route('document.file.store', $resource_id) }}',
 		paramName: 'file', // The name that will be used to transfer the file
 	    maxFilesize: 25, // MB
 	    parallelUploads: 2, //limits number of files processed to reduce stress on server
