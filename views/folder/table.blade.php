@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         @else
-                            <i class="{{ \App\ContentTypes\Resources\Models\File::getIconCssClass($category->getMeta('original')) }}"></i>
+                            <i class="{{ \Baytek\Laravel\Content\Types\File\Models\File::getIconCssClass($category->getMeta('original')) }}"></i>
                             <a class="item" href="{{ route('file.download', [$category->id]) }}">
                                 {{ $category->title }}
                             </a>
