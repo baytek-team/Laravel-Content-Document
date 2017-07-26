@@ -30,7 +30,7 @@
             @forelse($categories as $category)
                 <tr data-category-id="{{ $category->id }}">
                     <td class="resource-details">
-                        @if($category->relationships()->get('content_type') == 'resource-category')
+                        @if($category->relationships()->get('content_type') == 'folder')
                             <i class="folder icon"></i>
                             <a class="item" href="{{ route('document.folder.show', $category->id) }}">
                                 {{ $category->title }}
@@ -69,8 +69,8 @@
                                         {{ ___('Edit') }}
                                     </a>
                                     @button(___('Delete'), [
-                                        'method' => 'post',
-                                        'location' => 'document.file.delete',
+                                        'method' => 'delete',
+                                        'location' => 'document.file.destroy',
                                         'type' => 'route',
                                         'confirm' => 'Are you sure you want to delete this file?',
                                         'class' => 'item action',
@@ -105,7 +105,7 @@
                                 <i class="pencil icon"></i>
                                 {{ ___('Edit') }}
                             </a>
-                            <a class="item delete-button" data-dz-remove data-href="{{ route('document.file.delete', 1) }}" >
+                            <a class="item delete-button" data-dz-remove data-href="{{ route('document.file.destroy', 1) }}" >
                                 <i class="delete icon"></i>
                                 <span class="delete-text">{{ ___('Remove') }}</span>
                             </a>

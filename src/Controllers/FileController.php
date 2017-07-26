@@ -119,7 +119,7 @@ class FileController extends ContentController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, $file)
+    public function destroy(Request $request, $file)
     {
         $file = File::find($file)->load(['relations', 'relations.relation', 'relations.relationType']);
         $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
