@@ -1,11 +1,11 @@
 <?php
 
-namespace Baytek\Laravel\Content\Types\File\Seeders;
+namespace Baytek\Laravel\Content\Types\Document\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use Baytek\Laravel\Content\Types\File\Models\File;
-use Baytek\Laravel\Content\Types\File\Models\Folder;
+use Baytek\Laravel\Content\Types\Document\Models\File;
+use Baytek\Laravel\Content\Types\Document\Models\Folder;
 
 class FakeDataSeeder extends Seeder
 {
