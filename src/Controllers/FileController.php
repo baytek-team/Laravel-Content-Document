@@ -114,7 +114,7 @@ class FileController extends ContentController
      */
     public function edit($file)
     {        
-        return parent::contentEdit($id);
+        return parent::contentEdit($file);
     }
 
     /**
