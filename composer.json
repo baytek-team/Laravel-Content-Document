@@ -1,5 +1,5 @@
 {
-    "name": "baytek/laravel-content-files",
+    "name": "baytek/laravel-content-document",
     "description": "Files Content Provider",
     "license": "MIT",
     "type": "project",
@@ -22,7 +22,7 @@
         "php": ">=5.6.4"
     },
     "post-install-cmd": [
-        "php artisan install:files"
+        "php artisan install:document"
     ],
     "minimum-stability": "dev"
 }
