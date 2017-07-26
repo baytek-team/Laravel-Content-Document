@@ -9,7 +9,7 @@ class DocumentSeeder extends Seeder
         [
             'key' => 'file',
             'title' => 'File',
-            'content' => Baytek\Laravel\Content\Types\Document\Models\File::class,
+            'content' => \Baytek\Laravel\Content\Types\Document\Models\File::class,
             'relations' => [
                 ['parent-id', 'content-type']
             ]
@@ -17,7 +17,7 @@ class DocumentSeeder extends Seeder
         [
             'key' => 'folder',
             'title' => 'Folder',
-            'content' => Baytek\Laravel\Content\Types\Document\Models\Folder::class,
+            'content' => \Baytek\Laravel\Content\Types\Document\Models\Folder::class,
             'relations' => [
                 ['parent-id', 'content-type'],
             ]
