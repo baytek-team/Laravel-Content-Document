@@ -31,6 +31,11 @@ class FolderController extends ContentController
      */
     protected $viewPrefix = 'admin';
     /**
+     * Namespace from which to load the view
+     * @var string
+     */
+    protected $viewNamespace = 'documents';
+    /**
      * List of views this content type uses
      * @var [type]
      */

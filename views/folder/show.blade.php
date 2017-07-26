@@ -1,4 +1,4 @@
-@extends('admin.resources.folder.template')
+@extends('documents::folder.template')
 
 @section('content')
 <div class="webpage" style="background: {{ config('cms.content.webpage.background') }}">
