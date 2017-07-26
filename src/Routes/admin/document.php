@@ -6,4 +6,4 @@ Route::group(['as' => 'document.'], function(){
 
 	Route::resource('folder', FolderController::class);
 	Route::resource('file', FileController::class);
-})
+});
