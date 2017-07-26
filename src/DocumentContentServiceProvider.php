@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
-class FileContentServiceProvider extends AuthServiceProvider
+class DocumentContentServiceProvider extends AuthServiceProvider
 {
     use Settable;
 
