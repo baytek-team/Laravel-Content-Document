@@ -19,7 +19,7 @@ use Carbon\Carbon;
 use Response;
 use Validator;
 
-class FolderController extends Controller
+class FolderController extends ContentController
 {
     public function view($path = '')
     {
