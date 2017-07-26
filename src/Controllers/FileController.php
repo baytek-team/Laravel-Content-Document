@@ -69,15 +69,13 @@ class FileController extends ContentController
 
         $file->save();
 
-        $file->saveRelation('content-type', $file->getContentIdByKey('file'));
+        $file->saveRelation('content-type', content('content-type/file', false));
+        $file->saveRelation('parent-id', !is_null($id) ? $id : content('content-type/folder', false));
+
         $file->saveMetadata('file', $path);
         $file->saveMetadata('original', $originalName);
         $file->saveMetadata('size', FS::size($uploaded));
         $file->saveMetadata('mime', FS::mimeType($uploaded));
-
-        if(!is_null($id)) {
-            $file->saveRelation('parent-id', $id);
-        }
 
         $file->onBit(File::APPROVED)->update();
 
