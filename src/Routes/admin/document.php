@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['as' => 'document.'], function(){
+Route::group(['as' => 'document.'], function () {
 	Route::get('folder/{folder}/child', 'FolderController@create')
 		->name('folder.create.child');
 
