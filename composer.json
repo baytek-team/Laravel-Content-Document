@@ -1,6 +1,6 @@
 {
     "name": "baytek/laravel-content-document",
-    "description": "Files Content Provider",
+    "description": "Document Content Provider",
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Baytek\\Laravel\\Content\\Types\\Files\\": "src/"
+            "Baytek\\Laravel\\Content\\Types\\Document\\": "src/"
         }
     },
     "require": {
