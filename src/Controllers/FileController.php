@@ -35,6 +35,33 @@ use File as FS;
 class FileController extends ContentController
 {
     /**
+     * The model the Content Controller super class will use to access the document
+     *
+     * @var Baytek\Laravel\Content\Types\Webpage\Webpage
+     */
+    protected $model = File::class;
+
+    /**
+     * [$viewPrefix description]
+     * @var string
+     */
+    protected $viewPrefix = 'admin';
+    /**
+     * Namespace from which to load the view
+     * @var string
+     */
+    protected $viewNamespace = 'documents';
+    /**
+     * List of views this content type uses
+     * @var [type]
+     */
+    protected $views = [
+        'edit' => 'file.edit',
+    ];
+
+    protected $redirectsKey = 'document.folder';
+
+    /**
      * Show the form for editing a file's name
      */
     public function download($file)
@@ -86,11 +113,8 @@ class FileController extends ContentController
      * Show the form for editing a file's name
      */
     public function edit($file)
-    {
-        $file = File::find($file);
-        return view('admin.documents.file.edit', [
-            'file' => $file,
-        ]);
+    {        
+        return parent::contentEdit($id);
     }
 
     /**
