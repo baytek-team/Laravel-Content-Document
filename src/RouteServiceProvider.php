@@ -54,7 +54,7 @@ class RouteServiceProvider extends ServiceProvider
         $routes = 'routes/admin/document.php';
         if(file_exists(base_path($routes))){
             Route::prefix('admin/documents')
-                 ->middleware(['web', 'auth'])
+                 ->middleware(['admin'])
                  ->namespace(Controllers::class)
                  ->group(base_path($routes));
         }
