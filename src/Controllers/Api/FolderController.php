@@ -36,6 +36,7 @@ class FolderController extends ApiController
             'path' => $path,
             'parent' => content($parent->parent()),
             'title' => $parent->title,
+            'id' => $parent->id,
         ];
     }
 
