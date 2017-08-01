@@ -11,7 +11,7 @@ use Baytek\Laravel\Content\Models\Content;
 use Baytek\Laravel\Content\Events\ContentEvent;
 
 use Illuminate\Http\Request;
-use App\ContentTypes\Committees\Requests\FolderRequest;
+use Baytek\Laravel\Content\Types\Document\Requests\FolderRequest;
 
 use App;
 use Auth;
