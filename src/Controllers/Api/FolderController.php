@@ -29,7 +29,7 @@ class FolderController extends ApiController
 
         return [
             'folders' => $folders->get()->each(function(&$self) use ($path, $parent) {
-                $self->path = $path.'/'.$self->key;
+                $self->path = $path ? $path.'/'.$self->key : $self->key;
                 $self->count = File::childrenOfType($self->id, 'file')->withStatus('r', File::APPROVED)->count();
             }),
             'files' => Content::childrenOfType($parent, 'file')->withStatus('r', File::APPROVED)->get()->load('meta'),
@@ -97,5 +97,25 @@ class FolderController extends ApiController
             'status' => 'success',
             'message' => 'Document deleted!'
         ]);
+    }
+
+    // This needs to be done because the other solution is to have the route renamed
+    public function figureout(Request $request, $folder)
+    {
+        if (stripos($folder, 'folder/create') !== false) {
+            return $this->create($request, $folder);
+        }
+        else if (stripos($folder, 'file/upload') !== false) {
+            return (new FileController)->create($request, $folder);
+        }
+        else if (stripos($folder, 'folder/delete') !== false) {
+            return $this->destroy($request, $folder);
+        }
+        else if (stripos($folder, 'file/delete') !== false) {
+            return (new FileController)->destroy($request, $folder);
+        }
+        else if (stripos($folder, 'file/approve') !== false) {
+            return (new FileController)->approve($request, $folder);
+        }
     }
 }
