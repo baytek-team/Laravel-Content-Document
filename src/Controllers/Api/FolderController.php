@@ -75,11 +75,7 @@ class FolderController extends ApiController
         event(new ContentEvent($newFolder));
 
         //Add the path before returning the response
-        $newFolder->path = '/documents/';
-        if ($key) {
-            $newFolder->path .= $key.'/';
-        }
-        $newFolder->path .= $newFolder->key;
+        $newFolder->path = $key ? $key.'/'.$newFolder->key : $newFolder->key;
         $newFolder->parent = $newFolder->parent();
 
         return response()->json([
