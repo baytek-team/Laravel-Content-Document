@@ -53,7 +53,7 @@ class FakeDataSeeder extends Seeder
 
         //Make sure the folder in storage exists
         if (!file_exists(storage_path('app/resources'))) {
-            Storage::makeDirectory('resources');
+            \Storage::makeDirectory('resources');
         }
 
         foreach(range(1,$total) as $index) {

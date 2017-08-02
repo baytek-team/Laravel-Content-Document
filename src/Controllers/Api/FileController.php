@@ -82,7 +82,7 @@ class FileController extends ApiController
 
     public function approve(Request $request, $path)
     {
-        $file = content('folder' . preg_replace('/\/*file\/approve$/', '', $path), true, File::class);
+        $file = content('folder/' . preg_replace('/\/*file\/approve$/', '', $path), true, File::class);
 
         if ($request->title) {
             $file->title = $request->title;
