@@ -22,6 +22,30 @@ class DocumentSeeder extends Seeder
                 ['parent-id', 'content-type'],
             ]
         ],
+        [
+            'key' => 'document-menu',
+            'title' => 'Document Navigation Menu',
+            'content' => '',
+            'relations' => [
+                ['content-type', 'menu'],
+                ['parent-id', 'admin-menu'],
+            ]
+        ],
+        [
+            'key' => 'document-index',
+            'title' => 'Documents',
+            'content' => 'document.folder.index',
+            'meta' => [
+                'type' => 'route',
+                'class' => 'item',
+                'append' => '</span>',
+                'prepend' => '<i class="file text outline left icon"></i><span class="collapseable-text">',
+            ],
+            'relations' => [
+                ['content-type', 'menu-item'],
+                ['parent-id', 'document-menu'],
+            ]
+        ]
     ];
 
     /**
