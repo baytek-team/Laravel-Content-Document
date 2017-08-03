@@ -12,6 +12,26 @@ use Faker\Factory as Faker;
 class FakeDataSeeder extends Seeder
 {
     /**
+     * Simplified list of MIME types instead of the many faker ones
+     *
+     * @var array MIME types
+     */
+    protected $mimeTypes = [
+        'image/gif',
+        'image/png',
+        'image/jpeg',
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/msword',
+        'application/zip',
+        'application/x-gzip',
+        'application/vnd.ms-powerpoint',
+        'text/plain',
+    ];
+
+    /**
      * Run the database seeds.
      *
      * @return void
@@ -73,7 +93,7 @@ class FakeDataSeeder extends Seeder
             $file->saveMetadata('file', $path);
             $file->saveMetadata('original', 'example.txt');
             $file->saveMetadata('size', rand(1000,1000000000));
-            $file->saveMetadata('mime', $faker->mimeType());
+            $file->saveMetadata('mime', $this->mimeTypes[rand(0, count($this->mimeTypes) - 1)]);
         }
     }
 }
