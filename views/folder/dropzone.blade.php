@@ -67,7 +67,7 @@
 			$preview.find('.file-name').attr('href', downloadLink);
 			$preview.find('.edit-button').attr('href', editLink);
 			$preview.find('.delete-button').attr('href', deleteLink);
-			$preview.find('.delete-button .delete-text').text('Delete');
+			$preview.find('.delete-button .delete-text');
 		},
 		error: function (file, response) {
 			var $preview = $(file.previewElement);
