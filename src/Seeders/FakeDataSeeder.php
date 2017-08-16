@@ -44,7 +44,7 @@ class FakeDataSeeder extends Seeder
 
     public function generateFolders($total = 50)
     {
-        $content_type = content('content-type/folder', false);
+        $content_type = content_id('content-type/folder');
 
         $folder_ids = collect([$content_type]);
 
@@ -68,7 +68,7 @@ class FakeDataSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $content_type = content('content-type/file', false);
+        $content_type = content_id('content-type/file');
         $folders = Folder::all();
 
         //Make sure the folder in storage exists

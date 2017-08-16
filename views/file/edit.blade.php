@@ -12,7 +12,7 @@
 
             <div class="ui hidden error message"></div>
             <div class="field actions">
-                <a class="ui button" href="{{ $file->parent() != content('content-type/folder', false) ? route('document.folder.show', $file->parent()) : route('document.folder.index') }}">{{ ___('Cancel') }}</a>
+                <a class="ui button" href="{{ $file->parent() != content_id('content-type/folder') ? route('document.folder.show', $file->parent()) : route('document.folder.index') }}">{{ ___('Cancel') }}</a>
 
                 <button type="submit" class="ui right floated primary button">
                     {{ ___('Update') }}

@@ -47,7 +47,7 @@ class DocumentInstaller extends Installer
             'file',
         ];
 
-        return Content::whereIn('key', $relevantRecords)->count() === 0;
+        return Content::whereIn('contents.key', $relevantRecords)->count() === 0;
     }
 
     public function shouldProtect()

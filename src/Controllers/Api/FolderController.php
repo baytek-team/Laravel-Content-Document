@@ -66,7 +66,7 @@ class FolderController extends ApiController
     	$newFolder->save();
     	$newFolder->saveMetadata('author_id', Auth::user()->id);
     	$newFolder->saveRelation('parent-id', $folder->id);
-    	$newFolder->saveRelation('content-type', content('content-type/folder', false));
+    	$newFolder->saveRelation('content-type', content_id('content-type/folder'));
 
         //Approve the folder
         $newFolder->onBit(Folder::APPROVED)->update();

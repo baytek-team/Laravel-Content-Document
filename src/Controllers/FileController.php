@@ -96,8 +96,8 @@ class FileController extends ContentController
 
         $file->save();
 
-        $file->saveRelation('content-type', content('content-type/file', false));
-        $file->saveRelation('parent-id', !is_null($id) ? $id : content('content-type/folder', false));
+        $file->saveRelation('content-type', content_id('content-type/file'));
+        $file->saveRelation('parent-id', !is_null($id) ? $id : content_id('content-type/folder'));
 
         $file->saveMetadata('file', $path);
         $file->saveMetadata('original', $originalName);
@@ -113,7 +113,7 @@ class FileController extends ContentController
      * Show the form for editing a file's name
      */
     public function edit($file)
-    {        
+    {
         return parent::contentEdit($file);
     }
 
