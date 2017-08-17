@@ -21,6 +21,20 @@
     </div>
 @endsection
 
-@section('content')
-    @include('documents::folder.table')
-@endsection
+@if(count($categories))
+    @section('content')
+        @include('documents::folder.table')
+    @endsection
+@else
+    @section('outer-content')
+        <div class="ui middle aligned padded grid no-result">
+            <div class="column">
+                <div class="ui center aligned padded grid">
+                    <div class="column">
+                        <h2>{{ ___('We couldn\'t find anything') }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
+@endif
