@@ -47,35 +47,33 @@
                                 </div>
                             </div>
                         @else
-                            @can('View File')
-                                <div class="twelve wide middle aligned column">
-                                    <i class="{{ \Baytek\Laravel\Content\Types\Document\Models\File::getIconCssClass($category->getMeta('original')) }}"></i>
-                                    <a class="item" href="{{ route('document.file.download', [$category->id]) }}">
-                                        {{ $category->title }}
+                            <div class="twelve wide middle aligned column">
+                                <i class="{{ \Baytek\Laravel\Content\Types\Document\Models\File::getIconCssClass($category->getMeta('original')) }}"></i>
+                                <a class="item" href="{{ route('document.file.download', [$category->id]) }}">
+                                    {{ $category->title }}
+                                </a>
+                            </div>
+                            <div class="ui right aligned four wide column">
+                                <div class="ui compact text menu">
+                                    @can('Update File')
+                                    <a class="item" href="{{ route('document.file.edit', [$category->id]) }}">
+                                        <i class="pencil icon"></i>
+                                        {{-- {{ ___('Edit') }} --}}
                                     </a>
+                                    @endcan
+                                    @can('Delete File')
+                                    @button('', [
+                                        'method' => 'delete',
+                                        'location' => 'document.file.destroy',
+                                        'type' => 'route',
+                                        'confirm' => 'Are you sure you want to delete this file?',
+                                        'class' => 'item action',
+                                        'prepend' => '<i class="delete icon"></i>',
+                                        'model' => [$category->id],
+                                    ])
+                                    @endcan
                                 </div>
-                                <div class="ui right aligned four wide column">
-                                    <div class="ui compact text menu">
-                                        @can('Update File')
-                                        <a class="item" href="{{ route('document.file.edit', [$category->id]) }}">
-                                            <i class="pencil icon"></i>
-                                            {{-- {{ ___('Edit') }} --}}
-                                        </a>
-                                        @endcan
-                                        @can('Delete File')
-                                        @button('', [
-                                            'method' => 'delete',
-                                            'location' => 'document.file.destroy',
-                                            'type' => 'route',
-                                            'confirm' => 'Are you sure you want to delete this file?',
-                                            'class' => 'item action',
-                                            'prepend' => '<i class="delete icon"></i>',
-                                            'model' => [$category->id],
-                                        ])
-                                        @endcan
-                                    </div>
-                                </div>
-                            @endcan
+                            </div>
                         @endif
                     </div>
                 </td>
