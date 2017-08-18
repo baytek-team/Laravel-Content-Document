@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Cache;
 use View;
 use Validator;
+use Auth;
 
 class FolderController extends ContentController
 {
