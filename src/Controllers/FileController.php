@@ -5,6 +5,7 @@ namespace Baytek\Laravel\Content\Types\Document\Controllers;
 use Baytek\Laravel\Content\Types\Document\Models\File;
 use Baytek\Laravel\Content\Types\Document\Models\Folder;
 use Baytek\Laravel\Content\Controllers\ContentController;
+use Baytek\Laravel\Content\Events\ContentEvent;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -108,6 +109,9 @@ class FileController extends ContentController
 
         $file->onBit(File::APPROVED)->update();
 
+        //Content event to update the cache
+        event(new ContentEvent($file));
+
         return $file;
     }
 
@@ -133,6 +137,11 @@ class FileController extends ContentController
 
         $file->update($request->all());
 
+        //Content event to update the cache
+        event(new ContentEvent($file));
+
+        flash('File Updated');
+
         $parent = $file->relationships()->get('parent_id');
         if ($parent && $parent != 'folder') {
             return redirect(route('document.folder.show', $file->parent()));
@@ -157,6 +166,11 @@ class FileController extends ContentController
         $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
         Storage::delete($file->getMeta('file'));
         $file->delete();
+
+        flash('File Deleted');
+
+        //Content event to update the cache
+        event(new ContentEvent($file));
 
         $parent = $file->relationships()->get('parent_id');
         if ($parent && $parent != 'folder') {
