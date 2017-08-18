@@ -164,10 +164,21 @@ class FolderController extends ContentController
             (new $this->request)->rules(),
             (new $this->request)->messages()
         )->validate();
-        
-        $request->merge(['key' => str_slug($request->title)]);
 
-        return parent::contentUpdate($request, $id);
+        $this->redirects = false;
+        
+        // $request->merge(['key' => str_slug($request->title)]);
+
+        parent::contentUpdate($request, $id);
+
+        $parent = $folder->relationships()->get('parent_id');
+
+        if ($parent && $parent != 'folder') {
+            return redirect(route('document.folder.show', $parent));
+        }
+        else {
+            return redirect(route('document.folder.index'));
+        }
     }
 
     /**
