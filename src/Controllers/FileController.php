@@ -80,6 +80,8 @@ class FileController extends ContentController
      */
     public function store(Request $request, $id = null)
     {
+        $this->authorize('create', $this->model);
+
         $this->redirects = false;
 
         $uploaded = $request->file('file');
@@ -126,6 +128,9 @@ class FileController extends ContentController
     public function update(Request $request, $file)
     {
         $file = File::find($file)->load(['relations', 'relations.relation', 'relations.relationType']);
+
+        $this->authorize('update', $file);
+
         $file->update($request->all());
 
         $parent = $file->relationships()->get('parent_id');
@@ -146,6 +151,9 @@ class FileController extends ContentController
     public function destroy(Request $request, $file)
     {
         $file = File::find($file)->load(['relations', 'relations.relation', 'relations.relationType']);
+        
+        $this->authorize('delete', $file);
+
         $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
         Storage::delete($file->getMeta('file'));
         $file->delete();

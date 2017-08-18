@@ -56,7 +56,7 @@ class FolderController extends ContentController
     public function index(Request $request)
     {
         $categories = Folder::withoutGlobalScopes()
-            ->childrenOfType(['folder'], ['folder', 'file'])
+            ->childrenOfType(['folder'], Auth::user()->can('View File') ? ['folder', 'file'] : ['folder'])
             ->with(['relations', 'relations.relation', 'relations.relationType'])
             ->withStatus('r', Folder::APPROVED)
             ->get()
@@ -82,7 +82,7 @@ class FolderController extends ContentController
      */
     public function show($id = null)
     {
-        $categories = Content::childrenOfType($id, ['folder', 'file'])
+        $categories = Content::childrenOfType($id, Auth::user()->can('View File') ? ['folder', 'file'] : ['folder'])
             ->with(['relations', 'relations.relation', 'relations.relationType'])
             ->withStatus('r', Folder::APPROVED)
             ->get()
@@ -181,6 +181,9 @@ class FolderController extends ContentController
     public function destroy(Request $request, Folder $folder)
     {
         $folder->load(['relations', 'relations.relation', 'relations.relationType']);
+
+        $this->authorize('delete', $folder);
+
         $parent = $folder->relationships()->get('parent_id');
 
         getChildrenAndDelete($folder);
