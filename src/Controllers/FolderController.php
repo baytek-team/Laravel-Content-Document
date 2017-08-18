@@ -143,7 +143,12 @@ class FolderController extends ContentController
         //Content event to update the cache
         event(new ContentEvent($category));
 
-        return redirect(route($this->redirectsKey.'.index', $category));
+        if ($request->parent_id && $request->parent_id != content('content-type/folder', false)) {
+            return redirect(route('document.folder.show', $request->parent_id));
+        }
+        else {
+            return redirect(route('document.folder.index'));
+        }
     }
 
     /**
