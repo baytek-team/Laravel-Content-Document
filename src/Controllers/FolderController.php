@@ -169,7 +169,7 @@ class FolderController extends ContentController
         
         // $request->merge(['key' => str_slug($request->title)]);
 
-        parent::contentUpdate($request, $id);
+        $folder = parent::contentUpdate($request, $id);
 
         $parent = $folder->relationships()->get('parent_id');
 
