@@ -40,6 +40,7 @@ class DocumentSeeder extends Seeder
                 'class' => 'item',
                 'append' => '</span>',
                 'prepend' => '<i class="file text outline left icon"></i><span class="collapseable-text">',
+                'permission' => 'View Document',
             ],
             'relations' => [
                 ['content-type', 'menu-item'],
