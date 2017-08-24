@@ -42,4 +42,5 @@ class Folder extends Content
 
         parent::boot();
     }
+
 }

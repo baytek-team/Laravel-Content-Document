@@ -17,6 +17,6 @@ class ApprovedFolderScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->withStatus('contents', $model::APPROVED);
+        $builder->withStatus($model::APPROVED);
     }
 }

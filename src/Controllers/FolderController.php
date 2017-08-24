@@ -58,7 +58,7 @@ class FolderController extends ContentController
         $categories = Folder::withoutGlobalScopes()
             ->childrenOfType(['folder'], ['folder', 'file'])
             ->with(['relations', 'relations.relation', 'relations.relationType'])
-            ->withStatus('r', Folder::APPROVED)
+            ->withStatus(Folder::APPROVED)
             ->get()
             ->sortByDesc(function($category){
                 return $category->relationships()->get('content_type') == 'folder';
@@ -84,7 +84,7 @@ class FolderController extends ContentController
     {
         $categories = Content::childrenOfType($id, ['folder', 'file'])
             ->with(['relations', 'relations.relation', 'relations.relationType'])
-            ->withStatus('r', Folder::APPROVED)
+            ->withStatus(Folder::APPROVED)
             ->get()
             ->sortBy(function($category){
                 // dump($category->relationships()->get('content_type'));
@@ -158,7 +158,7 @@ class FolderController extends ContentController
             (new $this->request)->rules(),
             (new $this->request)->messages()
         )->validate();
-        
+
         $request->merge(['key' => str_slug($request->title)]);
 
         return parent::contentUpdate($request, $id);
