@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Cache;
 use View;
 use Validator;
+use Auth;
 
 class FolderController extends ContentController
 {
@@ -56,7 +57,7 @@ class FolderController extends ContentController
     public function index(Request $request)
     {
         $categories = Folder::withoutGlobalScopes()
-            ->childrenOfType(['folder'], ['folder', 'file'])
+            ->childrenOfType(['folder'], Auth::user()->can('View File') ? ['folder', 'file'] : ['folder'])
             ->with(['relations', 'relations.relation', 'relations.relationType'])
             ->withStatus(Folder::APPROVED)
             ->get()
@@ -82,7 +83,7 @@ class FolderController extends ContentController
      */
     public function show($id = null)
     {
-        $categories = Content::childrenOfType($id, ['folder', 'file'])
+        $categories = Content::childrenOfType($id, Auth::user()->can('View File') ? ['folder', 'file'] : ['folder'])
             ->with(['relations', 'relations.relation', 'relations.relationType'])
             ->withStatus(Folder::APPROVED)
             ->get()
@@ -142,7 +143,12 @@ class FolderController extends ContentController
         //Content event to update the cache
         event(new ContentEvent($category));
 
-        return redirect(route($this->redirectsKey.'.index', $category));
+        if ($request->parent_id && $request->parent_id != content('content-type/folder', false)) {
+            return redirect(route('document.folder.show', $request->parent_id));
+        }
+        else {
+            return redirect(route('document.folder.index'));
+        }
     }
 
     /**
@@ -159,9 +165,20 @@ class FolderController extends ContentController
             (new $this->request)->messages()
         )->validate();
 
-        $request->merge(['key' => str_slug($request->title)]);
+        $this->redirects = false;
+        
+        // $request->merge(['key' => str_slug($request->title)]);
 
-        return parent::contentUpdate($request, $id);
+        $folder = parent::contentUpdate($request, $id);
+
+        $parent = $folder->relationships()->get('parent_id');
+
+        if ($parent && $parent != 'folder') {
+            return redirect(route('document.folder.show', $parent));
+        }
+        else {
+            return redirect(route('document.folder.index'));
+        }
     }
 
     /**
@@ -181,6 +198,9 @@ class FolderController extends ContentController
     public function destroy(Request $request, Folder $folder)
     {
         $folder->load(['relations', 'relations.relation', 'relations.relationType']);
+
+        $this->authorize('delete', $folder);
+
         $parent = $folder->relationships()->get('parent_id');
 
         getChildrenAndDelete($folder);

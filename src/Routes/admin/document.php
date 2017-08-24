@@ -14,5 +14,7 @@ Route::group(['as' => 'document.'], function () {
 	 */
 	Route::get('file/{file}/download', 'FileController@download')
 		->name('file.download');
-	Route::resource('file', FileController::class);
+	Route::post('file/{folder?}', 'FileController@store')
+		->name('file.store');
+	Route::resource('file', FileController::class, ['except' => ['store']]);
 });

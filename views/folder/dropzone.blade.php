@@ -58,16 +58,23 @@
 		success: function (file, response) {
 			var $preview = $(file.previewElement);
 			var downloadLink = $preview.find('.file-name')[0].dataset.href.replace(/\/1/g, '/' + response.id);
-			var editLink = $preview.find('.edit-button')[0].dataset.href.replace(/\/1/g, '/' + response.id);
-			var deleteLink = $preview.find('.delete-button')[0].dataset.href.replace(/\/1/g, '/' + response.id);
+			
 			$preview.find('.progress').hide();
 			$preview.find('.completed').hide();
 			$preview.find('.uploading').remove();
-			$preview.find('.edit-button').show();
 			$preview.find('.file-name').attr('href', downloadLink);
+
+			@can('Update File')
+			var editLink = $preview.find('.edit-button')[0].dataset.href.replace(/\/1/g, '/' + response.id);
+			$preview.find('.edit-button').show();
 			$preview.find('.edit-button').attr('href', editLink);
+			@endcan		
+			
+			@can('Delete File')
+			var deleteLink = $preview.find('.delete-button')[0].dataset.href.replace(/\/1/g, '/' + response.id);
 			$preview.find('.delete-button').attr('href', deleteLink);
 			$preview.find('.delete-button .delete-text');
+			@endcan
 		},
 		error: function (file, response) {
 			var $preview = $(file.previewElement);

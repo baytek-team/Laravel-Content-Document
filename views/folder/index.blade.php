@@ -1,10 +1,14 @@
 @extends('documents::folder.template')
-@include('documents::folder.dropzone', ['resource_id' => $current_category_id])
+
+@can('Create File')
+    @include('documents::folder.dropzone', ['resource_id' => $current_category_id])
+@endcan
 
 @section('page.head.menu')
     <div class="ui secondary contextual menu">
 
         <div class="item">
+            @can('Create Folder')
             @link(___('Add Folder'), [
                 'location' => 'document.folder.create.child',
                 'type' => 'route',
@@ -13,10 +17,13 @@
                 'model' => $current_category_id
             ])
             &nbsp;
+            @endcan
+            @can('Create File')
             <a class="ui primary button dz-clickable">
                 <i class="file text icon"></i>
                 {{ ___('Add File') }}
             </a>
+            @endcan
         </div>
     </div>
 @endsection

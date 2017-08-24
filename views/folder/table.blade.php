@@ -19,10 +19,13 @@
                             <div class="ui right aligned four wide column">
                                 <div class="ui compact text menu" >
                                     @if($category->parent() && content($category->parent())->key != 'webpage')
+                                        @can('Update Folder')
                                         <a class="item" href="{{ route('document.folder.edit', $category->id) }}">
                                             <i class="pencil icon"></i>
                                             {{-- {{ ___('Edit') }} --}}
                                         </a>
+                                        @endcan
+                                        @can('Delete Folder')
                                         @button('', [
                                             'method' => 'delete',
                                             'location' => 'document.folder.destroy',
@@ -32,9 +35,14 @@
                                             'prepend' => '<i class="delete icon"></i>',
                                             'model' => [$category->id],
                                         ])
+                                        @endcan
                                     @else
+                                        @can('Update Folder')
                                         <a class="item disabled"><i class="pencil icon"></i> {{-- Edit --}}</a>
+                                        @endcan
+                                        @can('Delete Folder')
                                         <a class="item disabled"><i class="delete icon"></i> {{-- Delete --}}</a>
+                                        @endcan
                                     @endif
                                 </div>
                             </div>
@@ -47,10 +55,13 @@
                             </div>
                             <div class="ui right aligned four wide column">
                                 <div class="ui compact text menu">
+                                    @can('Update File')
                                     <a class="item" href="{{ route('document.file.edit', [$category->id]) }}">
                                         <i class="pencil icon"></i>
                                         {{-- {{ ___('Edit') }} --}}
                                     </a>
+                                    @endcan
+                                    @can('Delete File')
                                     @button('', [
                                         'method' => 'delete',
                                         'location' => 'document.file.destroy',
@@ -60,6 +71,7 @@
                                         'prepend' => '<i class="delete icon"></i>',
                                         'model' => [$category->id],
                                     ])
+                                    @endcan
                                 </div>
                             </div>
                         @endif
@@ -86,13 +98,17 @@
                     </div>
                     <div class="ui right aligned four wide column">
                         <div class="ui compact text menu">
+                            @can('Update File')
                             <a style="display: none" class="edit-button item" data-href="{{ route('document.file.edit', 1) }}">
                                 <i class="pencil icon"></i>
                             </a>
+                            @endcan
+                            @can('Delete File')
                             <a class="item delete-button" data-dz-remove data-href="{{ route('document.file.destroy', 1) }}" >
                                 <i class="delete icon"></i>
                                 <span class="delete-text"></span>
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
