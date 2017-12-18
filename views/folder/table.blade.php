@@ -79,7 +79,7 @@
                 </td>
             </tr>
         @empty
-            <tr>
+            <tr class="empty">
                 <td colspan="3">
                     <div class="ui centered">{{ ___('There are no results') }}</div>
                 </td>
