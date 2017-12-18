@@ -6,6 +6,21 @@ use Baytek\Laravel\Content\Models\Content;
 
 class File extends Content
 {
+    const EXCLUDED = 2 ** 9;  // Exclude from search
+
+    /**
+     * Return the status messages
+     *
+     * @return Mixed status message
+     */
+    public static function statusMessages()
+    {
+        // return Statuses\TermMessages::class;
+        return [
+            self::EXCLUDED => 'Excluded From Search',
+        ];
+    }
+    
 	/**
 	 * Content keys that will be saved to the relation tables
 	 * @var Array
