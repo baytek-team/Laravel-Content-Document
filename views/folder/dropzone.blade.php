@@ -77,7 +77,7 @@
 			@endcan
 
 			//Hide the 'no results' row
-			$('tr.empty').slideUp();
+			$('tr.empty').hide();
 		},
 		error: function (file, response) {
 			var $preview = $(file.previewElement);
