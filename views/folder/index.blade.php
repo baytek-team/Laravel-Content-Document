@@ -28,11 +28,12 @@
     </div>
 @endsection
 
-@if(count($categories))
-    @section('content')
-        @include('documents::folder.table')
-    @endsection
-@else
+
+@section('content')
+    @include('documents::folder.table')
+@endsection
+
+{{-- @if(@count($categories))
     @section('outer-content')
         <div class="ui middle aligned padded grid no-result">
             <div class="column">
@@ -44,4 +45,4 @@
             </div>
         </div>
     @endsection
-@endif
+@endif --}}
