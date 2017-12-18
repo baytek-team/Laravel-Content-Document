@@ -25,7 +25,7 @@ class FileController extends ApiController
         $folder = preg_replace('/\/*file$/', '', $folder);
         
         $path = ($folder) ? "folder/{$folder}/{$file}" : "folder/{$file}";
-        $file = (new File)->getWithPath($path)->first()->load('meta');
+        $file = File::withPath($path)->first()->load('meta');
 
         if ($this->allowDownload($folder, $file)) {
             return Response::download(storage_path('app/' . $file->metadata('file')), $file->metadata('original'));
