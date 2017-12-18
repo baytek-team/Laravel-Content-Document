@@ -75,6 +75,9 @@
 			$preview.find('.delete-button').attr('href', deleteLink);
 			$preview.find('.delete-button .delete-text');
 			@endcan
+
+			//Hide the 'no results' row
+			$('tr.empty').slideUp();
 		},
 		error: function (file, response) {
 			var $preview = $(file.previewElement);
