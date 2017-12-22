@@ -8,6 +8,8 @@ Route::group(['as' => 'document.'], function () {
 	Route::get('folder/{folder}/child', 'FolderController@create')
 		->name('folder.create.child');
 	Route::resource('folder', FolderController::class);
+	Route::get('folder/{folder}/edit/parent', 'FolderController@editParent')
+		->name('folder.edit.parent');
 
 	/**
 	 * File Routes

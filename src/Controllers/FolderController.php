@@ -152,7 +152,7 @@ class FolderController extends ContentController
     }
 
     /**
-     * Update a category using the parent method
+     * Update a folder using the parent method
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -166,12 +166,20 @@ class FolderController extends ContentController
         )->validate();
 
         $this->redirects = false;
-        
-        // $request->merge(['key' => str_slug($request->title)]);
-
         $folder = parent::contentUpdate($request, $id);
 
-        $parent = $folder->relationships()->get('parent_id');
+        //See whether the parent needs to change
+        $parent = $folder->parent();
+        if (($parent && $parent != $request->parent_id) || ($request->parent_id && !$parent)) {
+            $parent = $request->parent_id ?: content('content-type/folder', false);
+
+            $folder->removeRelationByType('parent-id');
+            $folder->saveRelation('parent-id', $parent);
+
+
+            //Content event to update the cache
+            event(new ContentEvent($folder));
+        }
 
         if ($parent && $parent != 'folder') {
             return redirect(route('document.folder.show', $parent));
@@ -182,14 +190,43 @@ class FolderController extends ContentController
     }
 
     /**
-     * Show the form for creating a new webpage.
+     * Show the form for editing a folder.
      *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
+        $folder = $this->bound($id);
+        $parent = $folder->getRelationship('parent-id');
+
         $this->viewData['edit'] = [
-            // 'parents' => Folder::where('contents.key', 'folder')->get(),
+            'parents' => [],
+            'parent' => $parent,
+        ];
+
+        return parent::contentEdit($id);
+    }
+
+    /**
+     * Show the form for editing a folder, with editable parent.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editParent($id)
+    {
+        $folder = $this->bound($id);
+        $parent = $folder->getRelationship('parent-id');
+        $folders = Folder::withStatus(Folder::APPROVED)->orderBy('title', 'asc')->get();
+        $root = content('content-type/folder', false);
+
+        $this->viewData['edit'] = [
+            'parents' => $this->hierarchical($root, $folders),
+            'parent' => $parent,
+            'disabledFlag' => false,
+            'disabledDepth' => 0,
+            'root' => $root,
+            'indent' => 0,
+            'levels' => []
         ];
 
         return parent::contentEdit($id);
@@ -213,4 +250,35 @@ class FolderController extends ContentController
         }
     }
 
+    /**
+     * Sort folders alphabetically, from a single parent source
+     *
+     * @param  int         $folder_id    The root parent
+     * @param  Collection  $folders
+     *
+     * @return array       $folder_list  The sorted folders
+     */
+    protected function hierarchical($folder_id, $folders) {
+        $children = [];
+        foreach ($folders as $folder) {
+            $children[$folder->parent()][] = $folder;
+        }
+
+        $folder_list = [];
+        if (isset($children[$folder_id])) {
+            $to_look = array_reverse($children[$folder_id]);
+
+            while($to_look) {
+                $f = array_pop($to_look);
+                $folder_list[] = $f;
+                if (isset($children[$f->id])) {
+                    foreach(array_reverse($children[$f->id]) as $child) {
+                        $to_look[] = $child;
+                    }
+                }
+            }
+        }
+
+        return $folder_list;
+    }
 }
