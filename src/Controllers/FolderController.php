@@ -176,7 +176,6 @@ class FolderController extends ContentController
             $folder->removeRelationByType('parent-id');
             $folder->saveRelation('parent-id', $parent);
 
-
             //Content event to update the cache
             event(new ContentEvent($folder));
         }
