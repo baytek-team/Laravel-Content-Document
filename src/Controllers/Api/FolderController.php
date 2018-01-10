@@ -25,14 +25,14 @@ class FolderController extends ApiController
     {
         $parent = $path ? content(trim("folder/$path", '/')) : content('content-type/folder');
 
-        $folders = Content::childrenOfType($parent->id, 'folder');
+        $folders = Folder::childrenOfType($parent->id, 'folder');
 
         return [
             'folders' => $folders->get()->each(function(&$self) use ($path, $parent) {
                 $self->path = $path ? $path.'/'.$self->key : $self->key;
                 $self->count = File::childrenOfType($self->id, 'file')->withStatus(File::APPROVED)->count();
             }),
-            'files' => Content::childrenOfType($parent->id, 'file')->withStatus(File::APPROVED)->get()->load('meta'),
+            'files' => File::childrenOfType($parent->id, 'file')->withStatus(File::APPROVED)->get()->load('meta'),
             'path' => $path,
             'parent' => content($parent->parent()),
             'title' => $parent->title,
