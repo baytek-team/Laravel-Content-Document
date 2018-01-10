@@ -3,6 +3,11 @@
 Route::group(['as' => 'document.'], function () {
 
 	/**
+	 *	Root route also goes to folder index
+	 */
+	Route::get('/', 'FolderController@index');
+
+	/**
 	 * Folder Routes
 	 */
 	Route::get('folder/{folder}/child', 'FolderController@create')
