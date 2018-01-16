@@ -163,6 +163,9 @@ class FileController extends ContentController
         
         $this->authorize('delete', $file);
 
+        $parent_id = $folder->parent();
+        $parent = $file->relationships()->get('parent_id');
+
         $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
         Storage::delete($file->getMeta('file'));
         $file->delete();
@@ -172,9 +175,9 @@ class FileController extends ContentController
         //Content event to update the cache
         event(new ContentEvent($file));
 
-        $parent = $file->relationships()->get('parent_id');
+        
         if ($parent && $parent != 'folder') {
-            return redirect(route('document.folder.show', $parent));
+            return redirect(route('document.folder.show', $parent_id));
         }
         else {
             return redirect(route('document.folder.index'));

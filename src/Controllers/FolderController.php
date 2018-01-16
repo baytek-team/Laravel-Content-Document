@@ -238,11 +238,12 @@ class FolderController extends ContentController
         $this->authorize('delete', $folder);
 
         $parent = $folder->relationships()->get('parent_id');
+        $parent_id = $folder->parent();
 
         getChildrenAndDelete($folder);
 
         if ($parent && $parent != 'folder') {
-            return redirect(route('document.folder.show', $parent));
+            return redirect(route('document.folder.show', $parent_id));
         }
         else {
             return redirect(route('document.folder.index'));
