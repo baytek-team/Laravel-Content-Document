@@ -180,6 +180,8 @@ class FolderController extends ContentController
             event(new ContentEvent($folder));
         }
 
+        flash('Folder Updated');
+
         if ($parent && $parent != 'folder') {
             return redirect(route('document.folder.show', $parent));
         }
@@ -241,6 +243,8 @@ class FolderController extends ContentController
         $parent_id = $folder->parent();
 
         getChildrenAndDelete($folder);
+
+        flash('Folder Deleted');
 
         if ($parent && $parent != 'folder') {
             return redirect(route('document.folder.show', $parent_id));
