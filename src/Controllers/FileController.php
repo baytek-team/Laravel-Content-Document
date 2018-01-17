@@ -163,7 +163,7 @@ class FileController extends ContentController
         
         $this->authorize('delete', $file);
 
-        $parent_id = $folder->parent();
+        $parent_id = $file->parent();
         $parent = $file->relationships()->get('parent_id');
 
         $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
