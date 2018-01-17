@@ -110,9 +110,11 @@ class FolderController extends ContentController
         $parent = is_null($id) ?
             Content::where('contents.key', 'folder')->get()->first() :
             Content::find($id);
+        $root = content('content-type/folder', false);
 
         $this->viewData['create'] = [
             'parent' => $parent,
+            'root' => $root
         ];
 
         return parent::contentCreate();
@@ -197,10 +199,12 @@ class FolderController extends ContentController
     {
         $folder = $this->bound($id);
         $parent = $folder->getRelationship('parent-id');
+        $root = content('content-type/folder', false);
 
         $this->viewData['edit'] = [
             'parents' => [],
             'parent' => $parent,
+            'root' => $root
         ];
 
         return parent::contentEdit($id);

@@ -51,7 +51,7 @@
 		@endsection
 	@endif
 
-	<input type="hidden" name="parent_id" value="{{$parent ? $parent->id : ''}}">
+	<input type="hidden" name="parent_id" value="{{$parent ? $parent->id : $root}}">
 	<div class="field">
 		<label>Parent</label>
 		<input type="text" disabled value="{{$parent ? $parent->title : 'No Parent'}}">
