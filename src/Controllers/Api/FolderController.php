@@ -28,7 +28,7 @@ class FolderController extends ApiController
         $folders = Content::childrenOfType($parent->id, 'folder')->withStatus(Folder::APPROVED);
 
         return [
-            'folders' => $folders->get()->each(function(&$self) use ($path, $parent) {
+            'folders' => $folders->get()->each(function (&$self) use ($path, $parent) {
                 $self->path = $path ? $path.'/'.$self->key : $self->key;
                 $self->count = File::childrenOfType($self->id, 'file')->withStatus(File::APPROVED)->count();
             }),
@@ -54,20 +54,19 @@ class FolderController extends ApiController
 
         if ($key) {
             $folder = content('folder/' . $key, true, Folder::class);
-        }
-        else {
+        } else {
             $folder = content('content-type/folder');
         }
 
         $request->merge(['key' => str_slug($request->title)]);
-    	$request->merge(['language' => App::getLocale()]);
+        $request->merge(['language' => App::getLocale()]);
 
         //Save folder and relationships
-    	$newFolder = new Folder($request->all());
-    	$newFolder->save();
-    	$newFolder->saveMetadata('author_id', Auth::user()->id);
-    	$newFolder->saveRelation('parent-id', $folder->id);
-    	$newFolder->saveRelation('content-type', content_id('content-type/folder'));
+        $newFolder = new Folder($request->all());
+        $newFolder->save();
+        $newFolder->saveMetadata('author_id', Auth::user()->id);
+        $newFolder->saveRelation('parent-id', $folder->id);
+        $newFolder->saveRelation('content-type', content_id('content-type/folder'));
 
         //Approve the folder
         $newFolder->onBit(Folder::APPROVED)->update();
@@ -87,9 +86,9 @@ class FolderController extends ApiController
 
     public function destroy(Request $request, $path)
     {
-    	$folder = content("folder/". preg_replace('/\/*folder\/delete$/', '', $path), true, Folder::class)->load(['relations', 'relations.relation', 'relations.relationType']);
+        $folder = content("folder/". preg_replace('/\/*folder\/delete$/', '', $path), true, Folder::class)->load(['relations', 'relations.relation', 'relations.relationType']);
 
-		getChildrenAndDelete($folder);
+        getChildrenAndDelete($folder);
 
         return response()->json([
             'status' => 'success',
@@ -100,19 +99,22 @@ class FolderController extends ApiController
     // This needs to be done because the other solution is to have the route renamed
     public function figureout(Request $request, $folder)
     {
+        if (!Auth::user()->can('Create File')) {
+            return response()->json([
+                'status' => 'failure',
+                'message' => 'Permission denied!'
+            ]);
+        }
+
         if (stripos($folder, 'folder/create') !== false) {
             return $this->create($request, $folder);
-        }
-        else if (stripos($folder, 'file/upload') !== false) {
+        } elseif (stripos($folder, 'file/upload') !== false) {
             return (new FileController)->create($request, $folder);
-        }
-        else if (stripos($folder, 'folder/delete') !== false) {
+        } elseif (stripos($folder, 'folder/delete') !== false) {
             return $this->destroy($request, $folder);
-        }
-        else if (stripos($folder, 'file/delete') !== false) {
+        } elseif (stripos($folder, 'file/delete') !== false) {
             return (new FileController)->destroy($request, $folder);
-        }
-        else if (stripos($folder, 'file/approve') !== false) {
+        } elseif (stripos($folder, 'file/approve') !== false) {
             return (new FileController)->approve($request, $folder);
         }
     }
