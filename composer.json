@@ -21,7 +21,7 @@
     "require": {
         "php": ">=7.0.0",
         "laravel/framework": "5.5.*",
-        "baytek/laravel-content": "1.2.*"
+        "baytek/laravel-content": "~1.2.0"
     },
     "post-install-cmd": [
         "php artisan install:document"
