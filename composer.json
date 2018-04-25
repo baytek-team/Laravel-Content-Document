@@ -19,10 +19,19 @@
         }
     },
     "require": {
-        "php": ">=5.6.4"
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*",
+        "baytek/laravel-content": "1.2.*"
     },
     "post-install-cmd": [
         "php artisan install:document"
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Baytek\\Laravel\\Content\\Types\\Document\\DocumentContentServiceProvider"
+            ]
+        }
+    }
 }
