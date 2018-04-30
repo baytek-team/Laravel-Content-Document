@@ -8,7 +8,7 @@ use Baytek\Laravel\Content\Types\Document\Models\File;
  */
 $factory->define(Folder::class, function (Faker\Generator $faker) {
 
-    $title = ucwords(implode(' ', $faker->unique()->words(rand(1,2))));
+    $title = ucwords(implode(' ', $faker->words(rand(1,3))));
 
     return [
         'key' => str_slug($title),
@@ -24,7 +24,7 @@ $factory->define(Folder::class, function (Faker\Generator $faker) {
  */
 $factory->define(File::class, function (Faker\Generator $faker) {
 
-    $title = ucwords(implode(' ', $faker->unique()->words(rand(1,5))));
+    $title = ucwords(implode(' ', $faker->words(rand(1,6))));
 
     return [
         'key' => str_slug($title),
