@@ -113,6 +113,7 @@ class FolderController extends ContentController
         $root = content('content-type/folder', false);
 
         $this->viewData['create'] = [
+            'parents' => [],
             'parent' => $parent,
             'root' => $root
         ];
