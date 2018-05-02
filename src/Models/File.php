@@ -70,10 +70,10 @@ class File extends Content
                 break;
             case 'txt':
             case 'csv':
-                $iconClass = 'file text outline icon';
+                $iconClass = 'file text icon';
                 break;
             default:
-                $iconClass = 'file outline icon';
+                $iconClass = 'file icon';
                 break;
         }
 
