@@ -21,7 +21,7 @@
                                     @if($category->parent() && content($category->parent())->key != 'webpage')
                                         @can('Update Folder')
                                         <a class="item" href="{{ route('document.folder.edit', $category->id) }}">
-                                            <i class="pencil icon"></i>
+                                            <i class="edit icon"></i>
                                             {{-- {{ ___('Edit') }} --}}
                                         </a>
                                         @endcan
@@ -38,7 +38,7 @@
                                         @endcan
                                     @else
                                         @can('Update Folder')
-                                        <a class="item disabled"><i class="pencil icon"></i> {{-- Edit --}}</a>
+                                        <a class="item disabled"><i class="edit icon"></i> {{-- Edit --}}</a>
                                         @endcan
                                         @can('Delete Folder')
                                         <a class="item disabled"><i class="delete icon"></i> {{-- Delete --}}</a>
@@ -57,7 +57,7 @@
                                 <div class="ui compact text menu">
                                     @can('Update File')
                                     <a class="item" href="{{ route('document.file.edit', [$category->id]) }}">
-                                        <i class="pencil icon"></i>
+                                        <i class="edit icon"></i>
                                         {{-- {{ ___('Edit') }} --}}
                                     </a>
                                     @endcan
@@ -100,7 +100,7 @@
                         <div class="ui compact text menu">
                             @can('Update File')
                             <a style="display: none" class="edit-button item" data-href="{{ route('document.file.edit', 1) }}">
-                                <i class="pencil icon"></i>
+                                <i class="edit icon"></i>
                             </a>
                             @endcan
                             @can('Delete File')

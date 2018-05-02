@@ -39,7 +39,7 @@ class DocumentSeeder extends Seeder
                 'type' => 'route',
                 'class' => 'item',
                 'append' => '</span>',
-                'prepend' => '<i class="file text outline left icon"></i><span class="collapseable-text">',
+                'prepend' => '<i class="file alternate left icon"></i><span class="collapseable-text">',
                 'permission' => 'View Folder',
             ],
             'relations' => [
