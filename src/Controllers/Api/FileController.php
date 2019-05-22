@@ -100,9 +100,8 @@ class FileController extends ApiController
     {
         $file = content('folder/' . preg_replace('/\/file\/delete$/', '', $path), true, File::class);
 
-        $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
         Storage::delete($file->getMeta('file'));
-        $file->delete();
+        $file->forceDelete();
 
         return response()->json([
             'status' => 'success',

@@ -166,14 +166,15 @@ class FileController extends ContentController
         $parent_id = $file->parent();
         $parent = $file->relationships()->get('parent_id');
 
-        $file->offBit(File::APPROVED)->onBit(File::DELETED)->update();
         Storage::delete($file->getMeta('file'));
-        $file->delete();
+        $file->forceDelete();
 
         flash('File Deleted');
 
         //Content event to update the cache
-        event(new ContentEvent($file));
+        if ($content = content($parent_id)) {
+            event(new ContentEvent($content));
+        }
 
         
         if ($parent && $parent != 'folder') {
