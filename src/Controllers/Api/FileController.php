@@ -28,7 +28,7 @@ class FileController extends ApiController
         $file = File::withPath($path)->first()->load('meta');
 
         if ($this->allowDownload($folder, $file)) {
-            return Response::download(storage_path('app/' . $file->metadata('file')), $file->metadata('original'));
+            return Response::file(storage_path('app/' . $file->metadata('file')));
         }
         else {
             return abort(403);
